@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import axios from 'axios';
 
+import User from './User';
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -12,31 +14,31 @@ class Home extends Component {
     this.state = {
       users: [
         {
-        userid: 'user1',
-        lat: 53.477131,
-        lon: -2.254062,
-        threatlevel: '',
-        timestamp: Date.now()
-      }, {
-        userid: 'user2',
-        lat: 53.478284,
-        lon: -2.253471,
-        threatlevel: '',
-        timestamp: Date.now()
-      }, {
-        userid: 'user3',
-        lat: 53.477374,
-        lon: -2.254319,
-        threatlevel: '',
-        timestamp: Date.now()
-      }, {
-        userid: 'user4',
-        lat: 53.477221,
-        lon: -2.256545,
-        threatlevel: '',
-        timestamp: Date.now()
-      }
-    ],
+          userid: 'user1',
+          lat: 53.477131,
+          lon: -2.254062,
+          threatlevel: '',
+          timestamp: Date.now()
+        }, {
+          userid: 'user2',
+          lat: 53.478284,
+          lon: -2.253471,
+          threatlevel: '',
+          timestamp: Date.now()
+        }, {
+          userid: 'user3',
+          lat: 53.477374,
+          lon: -2.254319,
+          threatlevel: '',
+          timestamp: Date.now()
+        }, {
+          userid: 'user4',
+          lat: 53.477221,
+          lon: -2.256545,
+          threatlevel: '',
+          timestamp: Date.now()
+        }
+      ],
 
     }
   }
@@ -44,21 +46,17 @@ class Home extends Component {
   render() {
     return (
       <div className='container columns'>
-        {this.state.users.map((user, i) => (
-          <div key={i} className='column box'>
-            <h1 className=''>{user.userid}</h1>
-            <div className='box'>
-              <button onClick={this.handleSubmitRed} className='box'>
-                THE RED BUTTON!
-             </button>
-              <button onClick={this.handleSubmitOrange} className='box'>
-                THE ORANGE BUTTON!
-            </button>
-              <button onClick={this.handleSubmitYellow} className='box'>
-                THE YELLOW BUTTON!
-            </button>
-            </div>
-          </div>
+        {this.state.users.map((user) => (
+          <User
+            userid={user.userid}
+            lat={user.lat}
+            lon={user.lon}
+            threatlevel={user.threatlevel}
+            handleSubmitRed={this.handleSubmitRed}
+            handleSubmitOrange={this.handleSubmitOrange}
+            handleSubmitYellow={this.handleSubmitYellow}
+
+          />
         ))}
       </div>
     );
@@ -80,37 +78,33 @@ class Home extends Component {
       });
   }
 
-  handleSubmitRed(event) {
-    event.preventDefault()
-    let user = this.state.user
+  handleSubmitRed(threatlevel, userid, lat, lon) {
+    console.log(userid)
+    console.log(threatlevel)
+
     this.setState({
-      user: Object.assign({}, user, {
-        threatlevel: 'high'
-      })
+      threatlevel: 'high'
     });
     // this.sendAlert()
   }
 
-  handleSubmitOrange(event) {
-    event.preventDefault()
+  handleSubmitOrange(threatlevel, userid, lat, lon) {
+    console.log(threatlevel)
+    console.log(userid)
     let user = this.state.user
     this.setState({
-      user: Object.assign({}, user, {
-        userid: this.state.user.userid,
-        threatlevel: 'medium'
-      })
-    });
+      threatlevel: 'medium'
+    })
     // this.sendAlert()
   }
 
-  handleSubmitYellow(event) {
-    event.preventDefault()
+  handleSubmitYellow(threatlevel, userid, lat, lon) {
+    console.log(threatlevel)
+    console.log(userid)
     let user = this.state.user
     this.setState({
-      user: Object.assign({}, user, {
-        threatlevel: 'low'
-      })
-    });
+      threatlevel: 'low'
+    })
     // this.sendAlert()
   }
 }
