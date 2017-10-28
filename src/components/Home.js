@@ -39,6 +39,13 @@ class Home extends Component {
           timestamp: Date.now()
         }
       ],
+      user: {
+        userid: '',
+        lat: 0,
+        lon: 0,
+        threatlevel: '',
+        timestamp: Date.now()
+      }
 
     }
   }
@@ -61,12 +68,12 @@ class Home extends Component {
     );
   }
 
-  sendAlert() {
+  sendAlert(threatlevel, userid, lat, lon) {
     axios.post('http://localhost:3050/reportthreat', {
-      userid: 'user1',
-      lat: 53.477131,
-      lon: -2.254062,
-      threatlevel: '',
+      userid: userid,
+      lat: lat,
+      lon: lon,
+      threatlevel: threatlevel,
       timestamp: Date.now()
     })
       .then((response) => {
@@ -78,25 +85,47 @@ class Home extends Component {
   }
 
   handleSubmitRed(threatlevel, userid, lat, lon) {
+    const user = {
+      threatlevel: threatlevel,
+      userid: userid,
+      lat: lat,
+      lon: lon
+    };
     this.setState({
-      threatlevel: 'high'
-    });
-    // this.sendAlert()
+      user
+    })
+    console.log(this.state.user)
+    // this.sendAlert(threatlevel, userid, lat, lon)
   }
 
   handleSubmitOrange(threatlevel, userid, lat, lon) {
+    const user = {
+      threatlevel: threatlevel,
+      userid: userid,
+      lat: lat,
+      lon: lon
+    };
     this.setState({
-      threatlevel: 'medium'
+      user
     })
-    // this.sendAlert()
+    console.log(this.state.user)
+    // this.sendAlert(threatlevel, userid, lat, lon)
   }
 
   handleSubmitYellow(threatlevel, userid, lat, lon) {
+    const user = {
+      threatlevel: threatlevel,
+      userid: userid,
+      lat: lat,
+      lon: lon
+    };
     this.setState({
-      threatlevel: 'low'
+      user
     })
-    // this.sendAlert()
+    console.log(this.state.user)
+    // this.sendAlert(threatlevel, userid, lat, lon)
   }
+
 }
 
 export default Home;

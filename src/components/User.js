@@ -36,11 +36,11 @@ class User extends Component {
       threatlevel = 'high'
       handleSubmitRed(threatlevel, userid, lat, lon)
     }
-    if (event.target.value === 'orange') {
+    else if (event.target.value === 'orange') {
       threatlevel = 'medium'
       handleSubmitOrange(threatlevel, userid, lat, lon)
     }
-    if (event.target.value === 'yellow') {
+    else if (event.target.value === 'yellow') {
       threatlevel = 'low'
       handleSubmitYellow(threatlevel, userid, lat, lon)
     }
