@@ -116,11 +116,15 @@ class Home extends Component {
   }
 
   handleSubmitRed(threatlevel, userid, lat, lon) {
+    const latitude =
+      `53.477` + Math.round(Math.random() * 1000 + 100).toString();
+    const longititude =
+      `-2.254` + Math.round(Math.random() * 1000 + 100).toString();
     const user = {
       threatlevel: threatlevel,
       userid: userid,
-      lat: lat,
-      lon: lon
+      lat: +latitude,
+      lon: +longititude
     };
     this.setState({
       user
@@ -132,11 +136,15 @@ class Home extends Component {
   }
 
   handleSubmitOrange(threatlevel, userid, lat, lon) {
+    const latitude =
+      `53.477` + Math.round(Math.random() * 1000 + 100).toString();
+    const longititude =
+      `-2.254` + Math.round(Math.random() * 1000 + 100).toString();
     const user = {
       threatlevel: threatlevel,
       userid: userid,
-      lat: lat,
-      lon: lon
+      lat: +latitude,
+      lon: +longititude
     };
     this.setState({
       user
@@ -147,11 +155,15 @@ class Home extends Component {
   }
 
   handleSubmitYellow(threatlevel, userid, lat, lon) {
+    const latitude =
+      `53.477` + Math.round(Math.random() * 1000 + 100).toString();
+    const longititude =
+      `-2.254` + Math.round(Math.random() * 1000 + 100).toString();
     const user = {
       threatlevel: threatlevel,
       userid: userid,
-      lat: lat,
-      lon: lon
+      lat: +latitude,
+      lon: +longititude
     };
     this.setState({
       user
