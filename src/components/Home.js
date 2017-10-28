@@ -84,6 +84,14 @@ class Home extends Component {
   }
 
   sendAlert(threatlevel, userid, lat, lon) {
+    const Content = {
+      threatlevel,
+      userid,
+      Location: {
+        lat,
+        lon
+      }
+    };
     axios
       .post("http://localhost:3050/reportthreat", {
         userid: userid,
@@ -94,7 +102,7 @@ class Home extends Component {
       })
       .then(response => {
         console.log(response);
-        key.sendSms({ To: "447949889991", Content: "Test!" }, (error, resp) => {
+        key.sendSms({ To: "447949889991", Content: Content }, (error, resp) => {
           if (error) {
             console.log("Something went wrong", error);
           } else {
@@ -118,9 +126,9 @@ class Home extends Component {
       user
     });
     console.log(this.state.user);
-    this.sendText();
+    // this.sendText();
     console.log("Text sent");
-    // this.sendAlert(threatlevel, userid, lat, lon)
+    this.sendAlert(threatlevel, userid, lat, lon);
   }
 
   handleSubmitOrange(threatlevel, userid, lat, lon) {
