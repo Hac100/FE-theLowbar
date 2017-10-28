@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 import './App.css';
 
@@ -9,20 +9,19 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <section className=" section">
-          <nav className="navbar" aria-label="main navigation">
-            <div className="navbar-brand">
-              <Link className='navbar-item' to='/'>Home</Link>
-            </div>
-          </nav>
+        <section className="section">
+        
+            <nav className="navbar" aria-label="main navigation">
+              <div className="">
+                <Link className='navbar-item' to='/'>Home</Link>
+              </div>
+            </nav>
+      
 
-          <div className='App container'>
-            <Switch>
-
-              <Route exact path='/' component={Home} />
-
-            </Switch>
+          <div className='container'>
+            <Route exact path='/' component={Home} />
           </div>
+
         </section>
       </BrowserRouter>
     );
