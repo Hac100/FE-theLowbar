@@ -45,9 +45,9 @@ class Home extends Component {
 
   render() {
     return (
-      <div className='container columns'>
+      <div className='columns'>
         {this.state.users.map((user) => (
-          <User
+          <User key={user.userid}
             userid={user.userid}
             lat={user.lat}
             lon={user.lon}
@@ -55,7 +55,6 @@ class Home extends Component {
             handleSubmitRed={this.handleSubmitRed}
             handleSubmitOrange={this.handleSubmitOrange}
             handleSubmitYellow={this.handleSubmitYellow}
-
           />
         ))}
       </div>
@@ -79,9 +78,6 @@ class Home extends Component {
   }
 
   handleSubmitRed(threatlevel, userid, lat, lon) {
-    console.log(userid)
-    console.log(threatlevel)
-
     this.setState({
       threatlevel: 'high'
     });
@@ -89,9 +85,6 @@ class Home extends Component {
   }
 
   handleSubmitOrange(threatlevel, userid, lat, lon) {
-    console.log(threatlevel)
-    console.log(userid)
-    let user = this.state.user
     this.setState({
       threatlevel: 'medium'
     })
@@ -99,17 +92,11 @@ class Home extends Component {
   }
 
   handleSubmitYellow(threatlevel, userid, lat, lon) {
-    console.log(threatlevel)
-    console.log(userid)
-    let user = this.state.user
     this.setState({
       threatlevel: 'low'
     })
     // this.sendAlert()
   }
 }
-
-
-
 
 export default Home;

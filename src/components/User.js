@@ -7,18 +7,18 @@ class User extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   render() {
-    const { userid, lat, lon, threatlevel, handleSubmitOrange, handleSubmitRed, handleSubmitYellow } = this.props
+    const { userid } = this.props
     return (
       <div className='column box'>
         <h1 className=''>{userid}</h1>
         <div className='box'>
-          <button onClick={this.handleClick} value='red' className='box'>
-            THE RED BUTTON!
+          <button onClick={this.handleClick} value='red' className='red box'>
+          <strong>ALERT!</strong>
        </button>
-          <button onClick={this.handleClick} value='orange' className='box'>
+          <button onClick={this.handleClick} value='orange' className=' orange box'>
             THE ORANGE BUTTON!  
       </button>
-          <button onClick={this.handleClick} value='yellow' className='box'>
+          <button onClick={this.handleClick} value='yellow' className=' yellow box'>
             THE YELLOW BUTTON!
       </button>
         </div>
