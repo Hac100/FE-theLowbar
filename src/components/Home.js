@@ -4,8 +4,8 @@ import clockwork from "clockwork";
 import User from "./User";
 
 const key = clockwork({ key: "ac27a65a60f8cbe8b5ed2efeabca6cf1c007dbc1" });
-const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
-const longititude = `-2.24` + Math.round(Math.random() * 10000).toString();
+// const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
+// const longititude = `-2.24` + Math.round(Math.random() * 10000).toString();
 let info = [];
 
 class Home extends Component {
@@ -75,7 +75,7 @@ class Home extends Component {
           ))}
         </div>
         {info.map(details => {
-          <p>Hello {details.threatlevel}</p>;
+          return (<p>Hello {details.threatlevel}</p>);
         })}
       </div>
     );
@@ -92,14 +92,14 @@ class Home extends Component {
   }
 
   sendAlert(threatlevel, userid, lat, lon) {
-    const Content = {
-      threatlevel,
-      userid,
-      Location: {
-        lat,
-        lon
-      }
-    };
+    // const Content = {
+    //   threatlevel,
+    //   userid,
+    //   Location: {
+    //     lat,
+    //     lon
+    //   }
+    // };
     axios
       .post("http://localhost:3050/reportthreat", {
         userid: userid,
@@ -124,13 +124,11 @@ class Home extends Component {
   }
 
   handleSubmitRed(threatlevel, userid, lat, lon) {
-    // const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
-    // const longititude = `-2.24` + Math.round(Math.random() * 10000).toString();
     const user = {
       threatlevel: threatlevel,
       userid: userid,
-      lat: +latitude,
-      lon: +longititude
+      lat: +lat,
+      lon: +lon
     };
     info.push(user);
     this.setState({
@@ -140,13 +138,11 @@ class Home extends Component {
   }
 
   handleSubmitOrange(threatlevel, userid, lat, lon) {
-    // const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
-    // const longititude = `-2.25` + Math.round(Math.random() * 10000).toString();
-    const user = {
+     const user = {
       threatlevel: threatlevel,
       userid: userid,
-      lat: +latitude,
-      lon: +longititude
+      lat: +lat,
+      lon: +lon
     };
     this.setState({
       user
@@ -155,13 +151,11 @@ class Home extends Component {
   }
 
   handleSubmitYellow(threatlevel, userid, lat, lon) {
-    // const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
-    // const longititude = `-2.24` + Math.round(Math.random() * 10000).toString();
-    const user = {
+      const user = {
       threatlevel: threatlevel,
       userid: userid,
-      lat: +latitude,
-      lon: +longititude
+      lat: +lat,
+      lon: +lon
     };
     this.setState({
       user

@@ -14,33 +14,32 @@ class User extends Component {
             <strong>{userid}</strong>
           </h1>
         </div>
-        <div className="box">
+        <div>
           <button
             onClick={this.handleClick}
             value="red"
-            className="button is-large is-danger"
+            className="button is-large is-danger is-fullwidth"
           >
-            RED ALERT!
+            HIGH THREAT
           </button>
-          <br />
           <br />
           <br />
           <button
             onClick={this.handleClick}
             value="orange"
-            className="button is-warning is-active is-large"
+            className="button is-large is-warning is-fullwidth"
+            backgroundColor="#ff8800"
           >
-            ORANGE ALERT!
+            MEDIUM THREAT
           </button>
-          <br />
           <br />
           <br />
           <button
             onClick={this.handleClick}
             value="yellow"
-            className="button is-warning is-large"
+            className="button is-large is-primary  is-fullwidth"
           >
-            YELLOW ALERT!
+            LOW THREAT
           </button>
         </div>
       </div>
