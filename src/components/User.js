@@ -20,7 +20,7 @@ class User extends Component {
             value="red"
             className="button is-large is-danger"
           >
-            <strong>RED ALERT!</strong>
+            RED ALERT!
           </button>
           <br />
           <br />
@@ -58,6 +58,9 @@ class User extends Component {
       handleSubmitRed,
       handleSubmitYellow
     } = this.props;
+
+    lat = (53.477 + (Math.random()-0.5) /100).toString();
+    lon = (-2.254 + (Math.random()-0.5) /100).toString();
 
     if (event.target.value === "red") {
       threatlevel = "high";
