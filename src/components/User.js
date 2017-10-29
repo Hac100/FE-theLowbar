@@ -15,22 +15,32 @@ class User extends Component {
           </h1>
         </div>
         <div className="box">
-          <button onClick={this.handleClick} value="red" className="red box">
+          <button
+            onClick={this.handleClick}
+            value="red"
+            className="button is-large is-danger"
+          >
             <strong>RED ALERT!</strong>
           </button>
+          <br />
+          <br />
+          <br />
           <button
             onClick={this.handleClick}
             value="orange"
-            className=" orange box"
+            className="button is-warning is-active is-large"
           >
-            <strong>ORANGE ALERT!</strong>
+            ORANGE ALERT!
           </button>
+          <br />
+          <br />
+          <br />
           <button
             onClick={this.handleClick}
             value="yellow"
-            className=" yellow box"
+            className="button is-warning is-large"
           >
-            <strong>YELLOW ALERT!</strong>
+            YELLOW ALERT!
           </button>
         </div>
       </div>

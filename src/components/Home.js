@@ -4,6 +4,9 @@ import clockwork from "clockwork";
 import User from "./User";
 
 const key = clockwork({ key: "ac27a65a60f8cbe8b5ed2efeabca6cf1c007dbc1" });
+const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
+const longititude = `-2.24` + Math.round(Math.random() * 10000).toString();
+let info = [];
 
 class Home extends Component {
   constructor(props) {
@@ -56,31 +59,36 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="columns">
-        {this.state.users.map(user => (
-          <User
-            key={user.userid}
-            userid={user.userid}
-            lat={user.lat}
-            lon={user.lon}
-            threatlevel={user.threatlevel}
-            handleSubmitRed={this.handleSubmitRed}
-            handleSubmitOrange={this.handleSubmitOrange}
-            handleSubmitYellow={this.handleSubmitYellow}
-          />
-        ))}
+      <div>
+        <div className="columns">
+          {this.state.users.map(user => (
+            <User
+              key={user.userid}
+              userid={user.userid}
+              lat={user.lat}
+              lon={user.lon}
+              threatlevel={user.threatlevel}
+              handleSubmitRed={this.handleSubmitRed}
+              handleSubmitOrange={this.handleSubmitOrange}
+              handleSubmitYellow={this.handleSubmitYellow}
+            />
+          ))}
+        </div>
+        {info.map(details => {
+          <p>Hello {details.threatlevel}</p>;
+        })}
       </div>
     );
   }
 
   sendText() {
-    key.sendSms({ To: "447949889991", Content: "Test!" }, (error, resp) => {
-      if (error) {
-        console.log("Something went wrong", error);
-      } else {
-        console.log("Message sent", resp.responses[0].id);
-      }
-    });
+    // key.sendSms({ To: "447949889991", Content: "Test!" }, (error, resp) => {
+    //   if (error) {
+    //     console.log("Something went wrong", error);
+    //   } else {
+    //     console.log("Message sent", resp.responses[0].id);
+    //   }
+    // });
   }
 
   sendAlert(threatlevel, userid, lat, lon) {
@@ -102,13 +110,13 @@ class Home extends Component {
       })
       .then(response => {
         console.log(response);
-        key.sendSms({ To: "447949889991", Content: Content }, (error, resp) => {
-          if (error) {
-            console.log("Something went wrong", error);
-          } else {
-            console.log("Message sent", resp.responses[0].id);
-          }
-        });
+        // key.sendSms({ To: "447949889991", Content: JSON.stringify(Content) }, (error, resp) => {
+        //   if (error) {
+        //     console.log("Something went wrong", error);
+        //   } else {
+        //     console.log("Message sent", resp.responses[0].id);
+        //   }
+        // });
       })
       .catch(error => {
         console.log(error);
@@ -116,30 +124,24 @@ class Home extends Component {
   }
 
   handleSubmitRed(threatlevel, userid, lat, lon) {
-    const latitude =
-      `53.477` + Math.round(Math.random() * 1000 + 100).toString();
-    const longititude =
-      `-2.254` + Math.round(Math.random() * 1000 + 100).toString();
+    // const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
+    // const longititude = `-2.24` + Math.round(Math.random() * 10000).toString();
     const user = {
       threatlevel: threatlevel,
       userid: userid,
       lat: +latitude,
       lon: +longititude
     };
+    info.push(user);
     this.setState({
       user
     });
-    console.log(this.state.user);
-    // this.sendText();
-    console.log("Text sent");
     this.sendAlert(threatlevel, userid, lat, lon);
   }
 
   handleSubmitOrange(threatlevel, userid, lat, lon) {
-    const latitude =
-      `53.477` + Math.round(Math.random() * 1000 + 100).toString();
-    const longititude =
-      `-2.254` + Math.round(Math.random() * 1000 + 100).toString();
+    // const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
+    // const longititude = `-2.25` + Math.round(Math.random() * 10000).toString();
     const user = {
       threatlevel: threatlevel,
       userid: userid,
@@ -149,16 +151,12 @@ class Home extends Component {
     this.setState({
       user
     });
-    console.log(this.state.user);
-
-    // this.sendAlert(threatlevel, userid, lat, lon)
+    this.sendAlert(threatlevel, userid, lat, lon);
   }
 
   handleSubmitYellow(threatlevel, userid, lat, lon) {
-    const latitude =
-      `53.477` + Math.round(Math.random() * 1000 + 100).toString();
-    const longititude =
-      `-2.254` + Math.round(Math.random() * 1000 + 100).toString();
+    // const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
+    // const longititude = `-2.24` + Math.round(Math.random() * 10000).toString();
     const user = {
       threatlevel: threatlevel,
       userid: userid,
@@ -168,8 +166,7 @@ class Home extends Component {
     this.setState({
       user
     });
-    console.log(this.state.user);
-    // this.sendAlert(threatlevel, userid, lat, lon)
+    this.sendAlert(threatlevel, userid, lat, lon);
   }
 }
 
