@@ -15,9 +15,10 @@ class Home extends Component {
     this.handleSubmitOrange = this.handleSubmitOrange.bind(this);
     this.handleSubmitYellow = this.handleSubmitYellow.bind(this);
     this.sendAlert = this.sendAlert.bind(this);
-    this.sendText = this.sendText.bind(this);
     this.handleSimulateBombs = this.handleSimulateBombs.bind(this);
-    this.handleSimulateVehicleAttack = this.handleSimulateVehicleAttack.bind(this);
+    this.handleSimulateVehicleAttack = this.handleSimulateVehicleAttack.bind(
+      this
+    );
     this.state = {
       users: [
         {
@@ -77,7 +78,7 @@ class Home extends Component {
           ))}
         </div>
         {info.map(details => {
-          return (<p>Hello {details.threatlevel}</p>);
+          return <p>Hello {details.threatlevel}</p>;
         })}
         <div>
           <br />
@@ -89,7 +90,8 @@ class Home extends Component {
           >
             SIMULATE BOMB ATTACKS
           </button>
-          <br /><br />
+          <br />
+          <br />
           <button
             onClick={this.handleSimulateVehicleAttack}
             value="yellow"
@@ -99,18 +101,7 @@ class Home extends Component {
           </button>
         </div>
       </div>
-
     );
-  }
-
-  sendText() {
-    // key.sendSms({ To: "447949889991", Content: "Test!" }, (error, resp) => {
-    //   if (error) {
-    //     console.log("Something went wrong", error);
-    //   } else {
-    //     console.log("Message sent", resp.responses[0].id);
-    //   }
-    // });
   }
 
   sendAlert(threatlevel, userid, lat, lon) {
@@ -122,6 +113,7 @@ class Home extends Component {
     //     lon
     //   }
     // };
+    const sms = `${userid} just reported a ${threatlevel} level threat. Their location is latitude: ${lat}, longitude: ${lon}`;
     axios
       .post("http://localhost:3050/reportthreat", {
         userid: userid,
@@ -132,7 +124,7 @@ class Home extends Component {
       })
       .then(response => {
         console.log(response);
-        // key.sendSms({ To: "447949889991", Content: JSON.stringify(Content) }, (error, resp) => {
+        // key.sendSms({ To: "447949889991", Content: sms }, (error, resp) => {
         //   if (error) {
         //     console.log("Something went wrong", error);
         //   } else {
@@ -189,19 +181,22 @@ class Home extends Component {
     event.preventDefault();
     //Generate a sequence of simulated high alerts over time in 3 distinct locations from multiple users
     for (let i = 0; i < 150; i++) {
-      setTimeout(function () {
-        let lats = [53.477131, 53.468000, 53.485000];
-        let lons = [-2.254062, -2.230000, -2.280000];
+      setTimeout(function() {
+        let lats = [53.477131, 53.468, 53.485];
+        let lons = [-2.254062, -2.23, -2.28];
         let whichAttack = Math.round(Math.random() * 2);
-        let whichUser = 'user' + (100 * Math.round(Math.random() * 2) + Math.round(Math.random() * 10));
+        let whichUser =
+          "user" +
+          (100 * Math.round(Math.random() * 2) +
+            Math.round(Math.random() * 10));
         let payload = {
           userid: whichUser,
           lat: lats[whichAttack] + (Math.random() - 0.5) / 500,
           lon: lons[whichAttack] + (Math.random() - 0.5) / 500,
-          threatlevel: 'high',
+          threatlevel: "high",
           timestamp: Date.now()
         };
-        console.log(payload)
+        console.log(payload);
         axios
           .post("http://localhost:3050/reportthreat", payload)
           .then(response => {
@@ -216,20 +211,29 @@ class Home extends Component {
 
   handleSimulateVehicleAttack(event) {
     event.preventDefault();
-    let lats = [53.474480, 53.484568];
+    let lats = [53.47448, 53.484568];
     let lons = [-2.251736, -2.245385];
     //Generate a sequence of simulated high alerts over time in 3 distinct locations from multiple users
     for (let i = 0; i < 150; i++) {
-      setTimeout(function () {
-        let whichUser = 'user' + (100 * Math.round(Math.random() * 2) + Math.round(Math.random() * 10));
+      setTimeout(function() {
+        let whichUser =
+          "user" +
+          (100 * Math.round(Math.random() * 2) +
+            Math.round(Math.random() * 10));
         let payload = {
           userid: whichUser,
-          lat: lats[0] + (lats[1] - lats[0]) * i / 150.0 + (Math.random() - 0.5) / 1000,
-          lon: lons[0] + (lons[1] - lons[0]) * i / 150.0 + (Math.random() - 0.5) / 1000,
-          threatlevel: Math.random() > 0.3 ? 'high' : 'medium',
+          lat:
+            lats[0] +
+            (lats[1] - lats[0]) * i / 150.0 +
+            (Math.random() - 0.5) / 1000,
+          lon:
+            lons[0] +
+            (lons[1] - lons[0]) * i / 150.0 +
+            (Math.random() - 0.5) / 1000,
+          threatlevel: Math.random() > 0.3 ? "high" : "medium",
           timestamp: Date.now()
         };
-        console.log(payload)
+        console.log(payload);
         axios
           .post("http://localhost:3050/reportthreat", payload)
           .then(response => {
@@ -242,6 +246,5 @@ class Home extends Component {
     }
   }
 }
-
 
 export default Home;
