@@ -113,7 +113,7 @@ class Home extends Component {
     //     lon
     //   }
     // };
-    const sms = `${userid} just reported a ${threatlevel} level threat. Their location is latitude: ${lat}, longitude: ${lon}`;
+    const sms = `${userid} just reported a '${threatlevel}' level threat. Their location is latitude: ${lat}, longitude: ${lon}`;
     axios
       .post("http://localhost:3050/reportthreat", {
         userid: userid,
