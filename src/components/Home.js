@@ -15,9 +15,8 @@ class Home extends Component {
     this.handleSubmitYellow = this.handleSubmitYellow.bind(this);
     this.sendAlert = this.sendAlert.bind(this);
     this.handleSimulateBombs = this.handleSimulateBombs.bind(this);
-    this.handleSimulateVehicleAttack = this.handleSimulateVehicleAttack.bind(
-      this
-    );
+    this.handleSimulateVehicleAttack = this.handleSimulateVehicleAttack.bind(this);
+    this.handleResetDemo = this.handleResetDemo.bind(this);
     this.state = {
       users: [
         {
@@ -63,7 +62,16 @@ class Home extends Component {
 
   render() {
     return (
+
       <div>
+        <button
+          onClick={this.handleResetDemo}
+          className="button is-large is-success  is-fullwidth"
+        >
+          RESET DEMO
+        </button>
+        <br />
+        <br />
         <div className="columns">
           {this.state.users.map(user => (
             <User
@@ -188,7 +196,7 @@ class Home extends Component {
     event.preventDefault();
     //Generate a sequence of simulated high alerts over time in 3 distinct locations from multiple users
     for (let i = 0; i < 150; i++) {
-      setTimeout(function() {
+      setTimeout(function () {
         let lats = [53.477131, 53.468, 53.485];
         let lons = [-2.254062, -2.23, -2.28];
         let whichAttack = Math.round(Math.random() * 2);
@@ -222,7 +230,7 @@ class Home extends Component {
     let lons = [-2.251736, -2.245385];
     //Generate a sequence of simulated high alerts over time in 3 distinct locations from multiple users
     for (let i = 0; i < 150; i++) {
-      setTimeout(function() {
+      setTimeout(function () {
         let whichUser =
           "user" +
           (100 * Math.round(Math.random() * 2) +
@@ -230,13 +238,13 @@ class Home extends Component {
         let payload = {
           userid: whichUser,
           lat:
-            lats[0] +
-            (lats[1] - lats[0]) * i / 150.0 +
-            (Math.random() - 0.5) / 1000,
+          lats[0] +
+          (lats[1] - lats[0]) * i / 150.0 +
+          (Math.random() - 0.5) / 1000,
           lon:
-            lons[0] +
-            (lons[1] - lons[0]) * i / 150.0 +
-            (Math.random() - 0.5) / 1000,
+          lons[0] +
+          (lons[1] - lons[0]) * i / 150.0 +
+          (Math.random() - 0.5) / 1000,
           threatlevel: Math.random() > 0.3 ? "high" : "medium",
           timestamp: Date.now()
         };
@@ -252,6 +260,19 @@ class Home extends Component {
       }, i * 150);
     }
   }
+
+  handleResetDemo(event) {
+    event.preventDefault();
+    axios
+      .get("http://localhost:3050/resetdemo")
+      .then(response => {
+        //console.log(response);
+      })
+      .catch(error => {
+        //console.log(error);
+      });
+  }
 }
+
 
 export default Home;
