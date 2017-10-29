@@ -15,7 +15,9 @@ class Home extends Component {
     this.handleSubmitYellow = this.handleSubmitYellow.bind(this);
     this.sendAlert = this.sendAlert.bind(this);
     this.handleSimulateBombs = this.handleSimulateBombs.bind(this);
-    this.handleSimulateVehicleAttack = this.handleSimulateVehicleAttack.bind(this);
+    this.handleSimulateVehicleAttack = this.handleSimulateVehicleAttack.bind(
+      this
+    );
     this.handleResetDemo = this.handleResetDemo.bind(this);
     this.state = {
       users: [
@@ -62,7 +64,6 @@ class Home extends Component {
 
   render() {
     return (
-
       <div>
         <button
           onClick={this.handleResetDemo}
@@ -101,7 +102,7 @@ class Home extends Component {
             value="yellow"
             className="button is-large is-primary  is-fullwidth"
           >
-            SIMULATE BOMB ATTACKS
+            SIMULATE MULTIPLE RIOTS
           </button>
           <br />
           <br />
@@ -110,7 +111,7 @@ class Home extends Component {
             value="yellow"
             className="button is-large is-primary  is-fullwidth"
           >
-            SIMULATE VEHICLE ATTACK
+            SIMULATE TRAVELING DISTURBANCES
           </button>
         </div>
       </div>
@@ -118,14 +119,6 @@ class Home extends Component {
   }
 
   sendAlert(threatlevel, userid, lat, lon) {
-    // const Content = {
-    //   threatlevel,
-    //   userid,
-    //   Location: {
-    //     lat,
-    //     lon
-    //   }
-    // };
     const sms = `${userid} just reported a '${threatlevel}' level threat. Their location is latitude: ${lat}, longitude: ${lon}`;
     axios
       .post("http://localhost:3050/reportthreat", {
@@ -137,13 +130,13 @@ class Home extends Component {
       })
       .then(response => {
         console.log(response);
-        // key.sendSms({ To: "447949889991", Content: sms }, (error, resp) => {
-        //   if (error) {
-        //     console.log("Something went wrong", error);
-        //   } else {
-        //     console.log("Message sent", resp.responses[0].id);
-        //   }
-        // });
+        key.sendSms({ To: "447949889991", Content: sms }, (error, resp) => {
+          if (error) {
+            console.log("Something went wrong", error);
+          } else {
+            console.log("Message sent", resp.responses[0].id);
+          }
+        });
       })
       .catch(error => {
         console.log(error);
@@ -196,7 +189,7 @@ class Home extends Component {
     event.preventDefault();
     //Generate a sequence of simulated high alerts over time in 3 distinct locations from multiple users
     for (let i = 0; i < 150; i++) {
-      setTimeout(function () {
+      setTimeout(function() {
         let lats = [53.477131, 53.468, 53.485];
         let lons = [-2.254062, -2.23, -2.28];
         let whichAttack = Math.round(Math.random() * 2);
@@ -230,7 +223,7 @@ class Home extends Component {
     let lons = [-2.251736, -2.245385];
     //Generate a sequence of simulated high alerts over time in 3 distinct locations from multiple users
     for (let i = 0; i < 150; i++) {
-      setTimeout(function () {
+      setTimeout(function() {
         let whichUser =
           "user" +
           (100 * Math.round(Math.random() * 2) +
@@ -238,13 +231,13 @@ class Home extends Component {
         let payload = {
           userid: whichUser,
           lat:
-          lats[0] +
-          (lats[1] - lats[0]) * i / 150.0 +
-          (Math.random() - 0.5) / 1000,
+            lats[0] +
+            (lats[1] - lats[0]) * i / 150.0 +
+            (Math.random() - 0.5) / 1000,
           lon:
-          lons[0] +
-          (lons[1] - lons[0]) * i / 150.0 +
-          (Math.random() - 0.5) / 1000,
+            lons[0] +
+            (lons[1] - lons[0]) * i / 150.0 +
+            (Math.random() - 0.5) / 1000,
           threatlevel: Math.random() > 0.3 ? "high" : "medium",
           timestamp: Date.now()
         };
@@ -273,6 +266,5 @@ class Home extends Component {
       });
   }
 }
-
 
 export default Home;
