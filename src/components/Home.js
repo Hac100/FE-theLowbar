@@ -6,7 +6,6 @@ import User from "./User";
 const key = clockwork({ key: "ac27a65a60f8cbe8b5ed2efeabca6cf1c007dbc1" });
 // const latitude = `53.47` + Math.round(Math.random() * 10000).toString();
 // const longititude = `-2.24` + Math.round(Math.random() * 10000).toString();
-let info = [];
 
 class Home extends Component {
   constructor(props) {
@@ -56,7 +55,9 @@ class Home extends Component {
         lon: 0,
         threatlevel: "",
         timestamp: Date.now()
-      }
+      },
+      toggleInfo: false,
+      info: ""
     };
   }
 
@@ -77,9 +78,13 @@ class Home extends Component {
             />
           ))}
         </div>
-        {info.map(details => {
-          return <p>Hello {details.threatlevel}</p>;
-        })}
+        {this.state.toggleInfo ? (
+          <p>
+            {this.state.user.userid}, you just reported a{" "}
+            {this.state.user.threatlevel} level threat. Please be safe until
+            emergency services reach you.
+          </p>
+        ) : null}
         <div>
           <br />
           <br />
@@ -144,9 +149,9 @@ class Home extends Component {
       lat: +lat,
       lon: +lon
     };
-    info.push(user);
     this.setState({
-      user
+      user,
+      toggleInfo: true
     });
     this.sendAlert(threatlevel, userid, lat, lon);
   }
@@ -159,7 +164,8 @@ class Home extends Component {
       lon: +lon
     };
     this.setState({
-      user
+      user,
+      toggleInfo: true
     });
     this.sendAlert(threatlevel, userid, lat, lon);
   }
@@ -172,7 +178,8 @@ class Home extends Component {
       lon: +lon
     };
     this.setState({
-      user
+      user,
+      toggleInfo: true
     });
     this.sendAlert(threatlevel, userid, lat, lon);
   }
