@@ -190,8 +190,8 @@ class Home extends Component {
     //Generate a sequence of simulated high alerts over time in 3 distinct locations from multiple users
     for (let i = 0; i < 150; i++) {
       setTimeout(function () {
-        let lats = [53.477131, 53.472000, 53.481000];
-        let lons = [-2.254062, -2.250000, -2.260000];
+        let lats = [53.477131, 53.468000, 53.485000];
+        let lons = [-2.254062, -2.230000, -2.280000];
         let whichAttack = Math.round(Math.random() * 2);
         let whichUser = 'user' + (100 * Math.round(Math.random() * 2) + Math.round(Math.random() * 10));
         let payload = {
