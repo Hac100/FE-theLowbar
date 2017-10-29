@@ -16,6 +16,8 @@ class Home extends Component {
     this.handleSubmitYellow = this.handleSubmitYellow.bind(this);
     this.sendAlert = this.sendAlert.bind(this);
     this.sendText = this.sendText.bind(this);
+    this.handleSimulateBombs = this.handleSimulateBombs.bind(this);
+    this.handleSimulateVehicleAttack = this.handleSimulateVehicleAttack.bind(this);
     this.state = {
       users: [
         {
@@ -77,7 +79,27 @@ class Home extends Component {
         {info.map(details => {
           return (<p>Hello {details.threatlevel}</p>);
         })}
+        <div>
+          <br />
+          <br />
+          <button
+            onClick={this.handleSimulateBombs}
+            value="yellow"
+            className="button is-large is-primary  is-fullwidth"
+          >
+            SIMULATE BOMB ATTACKS
+          </button>
+          <br /><br />
+          <button
+            onClick={this.handleSimulateVehicleAttack}
+            value="yellow"
+            className="button is-large is-primary  is-fullwidth"
+          >
+            SIMULATE VEHICLE ATTACK
+          </button>
+        </div>
       </div>
+
     );
   }
 
@@ -138,7 +160,7 @@ class Home extends Component {
   }
 
   handleSubmitOrange(threatlevel, userid, lat, lon) {
-     const user = {
+    const user = {
       threatlevel: threatlevel,
       userid: userid,
       lat: +lat,
@@ -151,7 +173,7 @@ class Home extends Component {
   }
 
   handleSubmitYellow(threatlevel, userid, lat, lon) {
-      const user = {
+    const user = {
       threatlevel: threatlevel,
       userid: userid,
       lat: +lat,
@@ -162,6 +184,64 @@ class Home extends Component {
     });
     this.sendAlert(threatlevel, userid, lat, lon);
   }
+
+  handleSimulateBombs(event) {
+    event.preventDefault();
+    //Generate a sequence of simulated high alerts over time in 3 distinct locations from multiple users
+    for (let i = 0; i < 150; i++) {
+      setTimeout(function () {
+        let lats = [53.477131, 53.472000, 53.481000];
+        let lons = [-2.254062, -2.250000, -2.260000];
+        let whichAttack = Math.round(Math.random() * 2);
+        let whichUser = 'user' + (100 * Math.round(Math.random() * 2) + Math.round(Math.random() * 10));
+        let payload = {
+          userid: whichUser,
+          lat: lats[whichAttack] + (Math.random() - 0.5) / 500,
+          lon: lons[whichAttack] + (Math.random() - 0.5) / 500,
+          threatlevel: 'high',
+          timestamp: Date.now()
+        };
+        console.log(payload)
+        axios
+          .post("http://localhost:3050/reportthreat", payload)
+          .then(response => {
+            //console.log(response);
+          })
+          .catch(error => {
+            //console.log(error);
+          });
+      }, i * 100);
+    }
+  }
+
+  handleSimulateVehicleAttack(event) {
+    event.preventDefault();
+    let lats = [53.474480, 53.484568];
+    let lons = [-2.251736, -2.245385];
+    //Generate a sequence of simulated high alerts over time in 3 distinct locations from multiple users
+    for (let i = 0; i < 150; i++) {
+      setTimeout(function () {
+        let whichUser = 'user' + (100 * Math.round(Math.random() * 2) + Math.round(Math.random() * 10));
+        let payload = {
+          userid: whichUser,
+          lat: lats[0] + (lats[1] - lats[0]) * i / 150.0 + (Math.random() - 0.5) / 1000,
+          lon: lons[0] + (lons[1] - lons[0]) * i / 150.0 + (Math.random() - 0.5) / 1000,
+          threatlevel: Math.random() > 0.3 ? 'high' : 'medium',
+          timestamp: Date.now()
+        };
+        console.log(payload)
+        axios
+          .post("http://localhost:3050/reportthreat", payload)
+          .then(response => {
+            //console.log(response);
+          })
+          .catch(error => {
+            //console.log(error);
+          });
+      }, i * 150);
+    }
+  }
 }
+
 
 export default Home;

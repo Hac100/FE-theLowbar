@@ -28,7 +28,6 @@ class User extends Component {
             onClick={this.handleClick}
             value="orange"
             className="button is-large is-warning is-fullwidth"
-            backgroundColor="#ff8800"
           >
             MEDIUM THREAT
           </button>
